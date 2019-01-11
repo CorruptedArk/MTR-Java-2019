@@ -26,8 +26,14 @@ public class DriveSubSystem extends Subsystem {
 
   private MecanumDrive driveBase = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
-  public void drive(double ySpeed, double xSpeed, double zRotation) {
-    driveBase.driveCartesian(ySpeed, xSpeed, zRotation);
+
+  public void setSafetyEnabled(boolean enabled)
+  {
+    driveBase.setSafetyEnabled(enabled);
+  }
+
+  public void drive(double leftAndRight, double forwardAndBack, double rotation) {
+    driveBase.driveCartesian(leftAndRight, forwardAndBack, rotation);
   }
 
   @Override

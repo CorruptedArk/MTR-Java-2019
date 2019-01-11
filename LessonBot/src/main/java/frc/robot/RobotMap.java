@@ -24,6 +24,28 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  //Constants for Xbox Buttons
+  public static final int A_BUTTON = 1;
+  public static final int B_BUTTON = 2;
+  public static final int X_BUTTON = 3;
+  public static final int Y_BUTTON = 4;
+  public static final int LEFT_BUMPER = 5;
+  public static final int RIGHT_BUMPER = 6;
+  public static final int BACK_BUTTON = 7;
+  public static final int START_BUTTON = 8;
+  public static final int LEFT_JOYSTICK_CLICK = 9;
+  public static final int RIGHT_JOYSTICK_CLICK = 10;
+
+  //Constants for Xbox Axes
+  public static final int LEFT_X_AXIS = 0;
+  public static final int LEFT_Y_AXIS = 1;
+  public static final int LEFT_TRIGGER_AXIS = 2;
+  public static final int RIGHT_TRIGGER_AXIS = 3;
+  public static final int RIGHT_X_AXIS = 4;
+  public static final int RIGHT_Y_AXIS = 5;
+  public static final int D_PAD = 6; 
+
+  //Constants for motor IDs
   public static final int FRONT_LEFT_MOTOR_ID = 0;
   public static final int REAR_LEFT_MOTOR_ID = 1;
   public static final int FRONT_RIGHT_MOTOR_ID = 2;
