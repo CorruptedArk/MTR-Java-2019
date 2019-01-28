@@ -9,37 +9,33 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class TeleOpCommand extends Command {
-  public TeleOpCommand() {
+public class StepUpDriveScaleCommand extends Command {
+private boolean finished;
+
+  public StepUpDriveScaleCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_driveSubsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    finished = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_driveSubsystem.setSafetyEnabled(true);
+    OI.stepUpDriveScale();
 
-    double leftAndRight = OI.buffer(RobotMap.LEFT_X_AXIS, OI.driver, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, OI.getDriveScale());
-    double forwardAndBack = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.driver, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, OI.getDriveScale());
-    double rotation = OI.buffer(RobotMap.RIGHT_X_AXIS, OI.driver, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, OI.getDriveScale());
-    
-    Robot.m_driveSubsystem.drive(leftAndRight, forwardAndBack, rotation);
+    finished = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return finished;
   }
 
   // Called once after isFinished returns true

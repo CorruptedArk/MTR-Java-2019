@@ -7,7 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.SetDriveForwardCommand;
+import frc.robot.commands.SetDriveBackwardCommand;
+import frc.robot.commands.StepDownDriveScaleCommand;
+import frc.robot.commands.StepUpDriveScaleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,10 +47,12 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
+  private static volatile boolean driveInverted = false; 
+
   public static final double ZERO_MARGIN = 0.18;
 
   public static final double DRIVE_SCALE_STEP_SIZE = 0.1;
-  private static double scale = 0.5;
+  private static volatile double driveScale = 0.5;
 
   public static final int DRIVER_ID = 0;
   public static final int SIDEKICK_ID = 1;
@@ -53,29 +60,52 @@ public class OI {
   public static final Joystick driver = new Joystick(DRIVER_ID);
   public static final Joystick sidekick = new Joystick(SIDEKICK_ID);
 
+  public static final JoystickButton stepDownDriveScaleButton = new JoystickButton(driver, RobotMap.LEFT_BUMPER);
+  public static final JoystickButton stepUpDriveScaleButton = new JoystickButton(driver, RobotMap.RIGHT_BUMPER);
+  public static final JoystickButton setDriveForwardButton = new JoystickButton(driver, RobotMap.Y_BUTTON);
+  public static final JoystickButton setDriveBackwardButton = new JoystickButton(driver, RobotMap.A_BUTTON);
+
   public OI()
   {
-
+    stepDownDriveScaleButton.whenPressed(new StepDownDriveScaleCommand());
+    stepUpDriveScaleButton.whenPressed(new StepUpDriveScaleCommand());
+    setDriveForwardButton.whenPressed(new SetDriveForwardCommand());
+    setDriveBackwardButton.whenPressed(new SetDriveBackwardCommand());
   }
 
-  public double getDriveScale()
+  public static boolean isDriveInverted()
   {
-    return scale;
+      return driveInverted;
   }
 
-  public void stepUpDriveScale()
+  public static void setDriveForward()
   {
-    if( scale <= 1-DRIVE_SCALE_STEP_SIZE )
+    driveInverted = false;
+  }
+
+  public static void setDriveBackward()
+  {
+    driveInverted = true;
+  }
+
+  public static double getDriveScale()
+  {
+    return driveScale;
+  }
+
+  public static void stepUpDriveScale()
+  {
+    if( driveScale <= 1-DRIVE_SCALE_STEP_SIZE )
     {
-      scale += DRIVE_SCALE_STEP_SIZE;
+      driveScale += DRIVE_SCALE_STEP_SIZE;
     }
   }
 
-  public void stepDownDriveScale()
+  public static void stepDownDriveScale()
   {
-    if(scale > DRIVE_SCALE_STEP_SIZE)
+    if(driveScale > DRIVE_SCALE_STEP_SIZE)
     {
-      scale -= DRIVE_SCALE_STEP_SIZE;
+      driveScale -= DRIVE_SCALE_STEP_SIZE;
     }
   }
 
@@ -153,4 +183,6 @@ public class OI {
         
         return moveOut;
     }
+
+
 }

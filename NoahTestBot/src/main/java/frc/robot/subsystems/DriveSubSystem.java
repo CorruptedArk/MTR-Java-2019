@@ -8,9 +8,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import frc.robot.RobotMap;
+//import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Talon;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -20,20 +21,26 @@ public class DriveSubSystem extends Subsystem {
   // here. Call these from Commands.
 
 
-  private Talon frontLeftMotor = new Talon(RobotMap.FRONT_LEFT_MOTOR_ID);
-  private Talon rearLeftMotor = new Talon(RobotMap.REAR_LEFT_MOTOR_ID); 
-  private Talon frontRightMotor = new Talon(RobotMap.FRONT_RIGHT_MOTOR_ID);
-  private Talon rearRightMotor = new Talon(RobotMap.REAR_RIGHT_MOTOR_ID);
+  // private Talon frontLeftMotor = new Talon(RobotMap.FRONT_LEFT_MOTOR_ID);
+  // private Talon rearLeftMotor = new Talon(RobotMap.REAR_LEFT_MOTOR_ID); 
+  // private Talon frontRightMotor = new Talon(RobotMap.FRONT_RIGHT_MOTOR_ID);
+  // private Talon rearRightMotor = new Talon(RobotMap.REAR_RIGHT_MOTOR_ID);
 
-  private MecanumDrive driveBase = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+  // private MecanumDrive driveBase = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
+  private Talon leftMotor = new Talon(RobotMap.LEFT_MOTOR_ID);
+  private Talon rightMotor = new Talon(RobotMap.RIGHT_MOTOR_ID);
+
+  private DifferentialDrive driveBase = new DifferentialDrive(leftMotor, rightMotor);
+  
   public void setSafetyEnabled(boolean enabled)
   {
     driveBase.setSafetyEnabled(enabled);
   }
 
-  public void drive(double horizontal, double forward, double rotation) {
-    driveBase.driveCartesian(horizontal, forward, rotation);
+  public void drive(double left, double right) {
+    //driveBase.driveCartesian(horizontal, forward, rotation);
+    driveBase.tankDrive(left, right);
   }
 
   @Override
