@@ -10,9 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TeleOpCommand;
 import frc.robot.subsystems.CameraSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -35,9 +35,8 @@ public class Robot extends TimedRobot {
  
 
   Command m_teleOpCommand;
-
   Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  //SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -46,12 +45,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    //m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    //chooser.addOption("My Auto", new MyAutoCommand());
+    //SmartDashboard.putData("Auto mode", m_chooser);
     m_cameraSubsystem.initCameras();
 
-
+    m_autonomousCommand = new TeleOpCommand();
     m_teleOpCommand = new TeleOpCommand();
   }
 
@@ -94,7 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    //m_autonomousCommand = m_chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -127,10 +126,10 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-  if(m_teleOpCommand != null) 
-  {
-    m_teleOpCommand.start();  
-   }
+    if(m_teleOpCommand != null) 
+    {
+      m_teleOpCommand.start();  
+    }
   }
 
   /**
