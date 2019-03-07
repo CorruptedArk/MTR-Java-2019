@@ -54,9 +54,11 @@ public class RobotMap {
    public static final int VERTICAL_MOTOR_ID = 3;
 
    //Constants for limit switches IDs
-   public static final int BOTTOM_LIMIT_SWITCH_ID = 0;
-   public static final int MIDDLE_LIMIT_SWITCH_ID = 1;
-   public static final int TOP_LIMIT_SWITCH_ID = 2;
+  //  public static final int BOTTOM_LIMIT_SWITCH_ID = 0;
+  //  public static final int MIDDLE_LIMIT_SWITCH_ID = 1;
+  //  public static final int TOP_LIMIT_SWITCH_ID = 2;
+
+  public static final int REAR_LIMIT_SWITCH_ID = 8;
 
    //Constants for Camera IDs
    public static final int CAMERA_1_ID = 0;

@@ -23,21 +23,23 @@ public class HookSubsystem extends Subsystem {
 
   private static final Talon verticalTalon = new Talon(RobotMap.VERTICAL_MOTOR_ID);
   private static final Talon armSlideTalon = new Talon(RobotMap.HORIZONTAL_MOTOR_ID);
-  private static final DigitalInput bottomSwitch = new DigitalInput(RobotMap.BOTTOM_LIMIT_SWITCH_ID);
-  private static final DigitalInput middleSwitch = new DigitalInput(RobotMap.MIDDLE_LIMIT_SWITCH_ID);
-  private static final DigitalInput topSwitch = new DigitalInput(RobotMap.TOP_LIMIT_SWITCH_ID);
-  private static final Counter bottomCounter = new Counter(bottomSwitch);
-  private static final Counter middleCounter = new Counter(middleSwitch);
-  private static final Counter topCounter = new Counter(topSwitch);
+  // private static final DigitalInput bottomSwitch = new DigitalInput(RobotMap.BOTTOM_LIMIT_SWITCH_ID);
+  // private static final DigitalInput middleSwitch = new DigitalInput(RobotMap.MIDDLE_LIMIT_SWITCH_ID);
+  // private static final DigitalInput topSwitch = new DigitalInput(RobotMap.TOP_LIMIT_SWITCH_ID);
+  // private static final Counter bottomCounter = new Counter(bottomSwitch);
+  // private static final Counter middleCounter = new Counter(middleSwitch);
+  // private static final Counter topCounter = new Counter(topSwitch);
+  private static final DigitalInput rearSwitch = new DigitalInput(RobotMap.REAR_LIMIT_SWITCH_ID);
+  private static final Counter rearCounter = new Counter(rearSwitch);
 
   public static final boolean UP = true;
   public static final boolean DOWN = false;
   
-  private static int lastSwitchClicked = RobotMap.BOTTOM_LIMIT_SWITCH_ID;
-  private static boolean lastDirection = DOWN;
+  // private static int lastSwitchClicked = RobotMap.BOTTOM_LIMIT_SWITCH_ID;
+  // private static boolean lastDirection = DOWN;
   
   
-  private static double scale = 0.5;
+  private static double scale = 0.7;
   private static final double HOOK_SCALE_STEP_SIZE = 0.1; 
 
   public void controlArmSlide(double armSlideSpeed) {
@@ -59,52 +61,62 @@ public class HookSubsystem extends Subsystem {
   public void stopTheLift() {
     verticalTalon.set(0.0);
   }
-
-  public boolean checkTopSwitch() {
-    return topSwitch.get() || topCounter.get() > 0;
+  
+  public boolean checkRearSwitch()
+  {
+    return rearSwitch.get() || rearCounter.get() > 0;
+  }
+  
+  public void resetRearCounter()
+  {
+    rearCounter.reset();
   }
 
-  public boolean checkMiddleSwitch() {
-    return middleSwitch.get() || middleCounter.get() > 0;
-  }
+  // public boolean checkTopSwitch() {
+  //   return topSwitch.get() || topCounter.get() > 0;
+  // }
 
-  public boolean checkBottomSwitch() {
-    return bottomSwitch.get() || bottomCounter.get() > 0;
-  }
+  // public boolean checkMiddleSwitch() {
+  //   return middleSwitch.get() || middleCounter.get() > 0;
+  // }
 
-  public boolean getLastDirection() {
-    return lastDirection;
-  }
+  // public boolean checkBottomSwitch() {
+  //   return bottomSwitch.get() || bottomCounter.get() > 0;
+  // }
 
-  public void setLastDirection(boolean direction) {
-    lastDirection = direction;
-  } 
+  // public boolean getLastDirection() {
+  //   return lastDirection;
+  // }
 
-  public int getLastSwitchClicked(){
-    return lastSwitchClicked;
-  }
+  // public void setLastDirection(boolean direction) {
+  //   lastDirection = direction;
+  // } 
 
-  public void setLastSwitchClicked(int switchID) {
-    lastSwitchClicked = switchID;
-  }
+  // public int getLastSwitchClicked(){
+  //   return lastSwitchClicked;
+  // }
 
-  public void resetTopCounter() {
-    topCounter.reset();
-  }
+  // public void setLastSwitchClicked(int switchID) {
+  //   lastSwitchClicked = switchID;
+  // }
 
-  public void resetMiddleCounter() {
-    middleCounter.reset();
-  }
+  // public void resetTopCounter() {
+  //   topCounter.reset();
+  // }
 
-  public void resetBottomCounter() {
-    bottomCounter.reset();
-  }
+  // public void resetMiddleCounter() {
+  //   middleCounter.reset();
+  // }
 
-  public void resetAllCounters() {
-    resetBottomCounter();
-    resetMiddleCounter();
-    resetTopCounter();
-  }
+  // public void resetBottomCounter() {
+  //   bottomCounter.reset();
+  // }
+
+  // public void resetAllCounters() {
+  //   resetBottomCounter();
+  //   resetMiddleCounter();
+  //   resetTopCounter();
+  // }
 
   public static void stepUpScale() {
     if(scale < 1.0)

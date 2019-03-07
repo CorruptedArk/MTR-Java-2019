@@ -50,7 +50,7 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
 
   public static final double ZERO_MARGIN = 0.18;
-  private static volatile double driveScale = .5;
+  private static volatile double driveScale = .7;
   public static final double DRIVE_SCALE_STEP_SIZE = 0.1;
   
 

@@ -43,13 +43,13 @@ public class LiftToBottomCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_hookSubsystem.checkBottomSwitch()) {
-      end();
-    }
-    else {
-      Robot.m_hookSubsystem.liftDown();
-      direction = HookSubsystem.DOWN;
-    }
+    // if(Robot.m_hookSubsystem.checkBottomSwitch()) {
+    //   end();
+    // }
+    // else {
+    //   Robot.m_hookSubsystem.liftDown();
+    //   direction = HookSubsystem.DOWN;
+    // }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -61,22 +61,22 @@ public class LiftToBottomCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    if (running) {
-      Robot.m_hookSubsystem.stopTheLift();
-      Robot.m_hookSubsystem.setLastSwitchClicked(RobotMap.BOTTOM_LIMIT_SWITCH_ID);
-      Robot.m_hookSubsystem.resetAllCounters();
-      Robot.m_hookSubsystem.setLastDirection(direction);
-    }
-    finished = true;
-    running = false;
+    // if (running) {
+    //   Robot.m_hookSubsystem.stopTheLift();
+    //   Robot.m_hookSubsystem.setLastSwitchClicked(RobotMap.BOTTOM_LIMIT_SWITCH_ID);
+    //   Robot.m_hookSubsystem.resetAllCounters();
+    //   Robot.m_hookSubsystem.setLastDirection(direction);
+    // }
+    // finished = true;
+    // running = false;
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.m_hookSubsystem.stopTheLift();
-    Robot.m_hookSubsystem.setLastDirection(direction);
-    running = false;
+    // Robot.m_hookSubsystem.stopTheLift();
+    // Robot.m_hookSubsystem.setLastDirection(direction);
+    // running = false;
   }
 }

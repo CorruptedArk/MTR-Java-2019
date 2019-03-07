@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.OI;
 import frc.robot.RobotMap;
@@ -30,7 +31,7 @@ public class TeleOpCommand extends Command {
   @Override
   protected void execute() {
     Robot.m_driveSubsystem.setSafetyEnabled(true); 
-  
+    SmartDashboard.putBoolean("Switch", Robot.m_hookSubsystem.checkRearSwitch());
     double leftSpeed;
     double rightSpeed;
     double armLiftSpeed;
@@ -49,6 +50,12 @@ public class TeleOpCommand extends Command {
 
     armLiftSpeed = OI.buffer(RobotMap.RIGHT_Y_AXIS, OI.buddy, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, HookSubsystem.getScale());
     armSlideSpeed = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.buddy, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, 0.5 * HookSubsystem.getScale());
+
+    if (Robot.m_hookSubsystem.checkRearSwitch() && armSlideSpeed > 0)
+    {
+      Robot.m_hookSubsystem.resetRearCounter();
+      armSlideSpeed = 0;
+    }
 
     Robot.m_driveSubsystem.drive(leftSpeed, rightSpeed);
     Robot.m_hookSubsystem.controlArmLift(armLiftSpeed);
