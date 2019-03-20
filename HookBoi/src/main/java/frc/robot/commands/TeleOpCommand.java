@@ -49,11 +49,16 @@ public class TeleOpCommand extends Command {
     }
 
     armLiftSpeed = OI.buffer(RobotMap.RIGHT_Y_AXIS, OI.buddy, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, HookSubsystem.getScale());
-    armSlideSpeed = OI.buffer(RobotMap.LEFT_Y_AXIS, OI.buddy, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, 0.5 * HookSubsystem.getScale());
+    armSlideSpeed = OI.buffer(RobotMap.LEFT_X_AXIS, OI.buddy, false, OI.ZERO_MARGIN, -OI.ZERO_MARGIN, 0.5 * HookSubsystem.getScale());
 
     if (Robot.m_hookSubsystem.checkRearSwitch() && armSlideSpeed > 0)
     {
       Robot.m_hookSubsystem.resetRearCounter();
+      armSlideSpeed = 0;
+    }
+    else if(Robot.m_hookSubsystem.checkFrontSwitch() && armSlideSpeed < 0)
+    {
+      Robot.m_hookSubsystem.resetFrontCounter();
       armSlideSpeed = 0;
     }
 

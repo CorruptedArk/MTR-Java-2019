@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    HookSubsystem.dropItServo();
   }
 
   @Override
@@ -103,7 +104,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-
+    HookSubsystem.raiseItServo();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();

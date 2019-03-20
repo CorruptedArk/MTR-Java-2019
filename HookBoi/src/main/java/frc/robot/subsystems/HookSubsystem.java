@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Talon;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Counter;
 
 
@@ -31,7 +32,9 @@ public class HookSubsystem extends Subsystem {
   // private static final Counter topCounter = new Counter(topSwitch);
   private static final DigitalInput rearSwitch = new DigitalInput(RobotMap.REAR_LIMIT_SWITCH_ID);
   private static final Counter rearCounter = new Counter(rearSwitch);
-
+  private static final DigitalInput frontSwitch = new DigitalInput(RobotMap.FRONT_LIMIT_SWITCH_ID);
+  private static final Counter frontCounter = new Counter(frontSwitch);
+  private static final Servo stopArmServo = new Servo(RobotMap.STOP_ARM_SERVO_ID);
   public static final boolean UP = true;
   public static final boolean DOWN = false;
   
@@ -61,12 +64,22 @@ public class HookSubsystem extends Subsystem {
   public void stopTheLift() {
     verticalTalon.set(0.0);
   }
+
+  public boolean checkFrontSwitch()
+  {
+    return frontSwitch.get() || frontCounter.get() > 0;
+  }
+
+  public void resetFrontCounter()
+  {
+    frontCounter.reset();
+  }
   
   public boolean checkRearSwitch()
   {
     return rearSwitch.get() || rearCounter.get() > 0;
   }
-  
+
   public void resetRearCounter()
   {
     rearCounter.reset();
@@ -135,6 +148,16 @@ public class HookSubsystem extends Subsystem {
 
   public static double getScale() {
     return scale;
+  }
+
+  public static void dropItServo()
+  {
+    stopArmServo.set(0.0);
+  }
+
+  public static void raiseItServo()
+  {
+    stopArmServo.set(0.5);
   }
 
   @Override
